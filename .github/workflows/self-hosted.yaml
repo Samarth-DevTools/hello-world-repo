@@ -1,0 +1,15 @@
+name: testing self-hosted runner
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: runner-1
+    steps: 
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Greeting the user
+        run: |
+          echo "Hello user how was your day"
+          sleep 10s
+          echo "Good bye"
