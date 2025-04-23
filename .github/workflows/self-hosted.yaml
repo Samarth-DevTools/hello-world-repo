@@ -3,7 +3,9 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: demo-runner
+    runs-on: 
+      - demo-runner
+      - sample-runner
     steps: 
       - name: Checkout repo
         uses: actions/checkout@v2
