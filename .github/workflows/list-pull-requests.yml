@@ -25,7 +25,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr list --limit 100 --json number,title,author,state \ > pull-requests.json
+          gh pr list --limit 100 --json number,title,author,state > pull-requests.json
 
       - name: Convert JSON to CSV
         run: |
