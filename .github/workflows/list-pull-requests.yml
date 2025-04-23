@@ -1,0 +1,58 @@
+name: List Pull Requests to CSV
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  list-pull-requests:
+    runs-on: demo-runner
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh -y
+
+      - name: Authenticate GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.MY_SECRET }}
+        run: gh auth setup-git
+
+      - name: List PRs and save as JSON
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr list --limit 100 --json number,title,author,state \ > pull-requests.json
+
+      - name: Convert JSON to CSV
+        run: |
+          echo "number,title,author,state" > pull-requests.csv
+          cat pull-requests.json | jq -r '.[] | [.number, .title, .author.login, .state] | @csv' >> pull-requests.csv
+
+      - name: Print CSV contents (Share with next step)
+        id: show-csv
+        run: |
+          echo "Here is the generated CSV:"
+          cat pull-requests.csv
+
+      - name: Upload CSV as artifact (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: pull-requests-csv
+          path: pull-requests.csv
+
+  process-prs:
+    runs-on: demo-runner
+    steps:
+      - name: Download CSV file 
+        uses: actions/download-artifact@v4
+        with:
+          name:  pull-requests.csv
+          path:  ./downloaded-artifacts/
+
+      - name: read the downloaded csv file
+        run: cat ./downloaded-artifacts/pull-requests.csv
+        
