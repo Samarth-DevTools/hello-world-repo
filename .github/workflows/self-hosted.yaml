@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: runner-1
+    runs-on: demo-runner
     steps: 
       - name: Checkout repo
         uses: actions/checkout@v2
