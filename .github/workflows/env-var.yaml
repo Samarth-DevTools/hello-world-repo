@@ -1,43 +1,34 @@
-name: default env variables
-on:
-  workflow_dispatch:
+name: Self-Hosted Runner HTML Example
+
+on: [push]
 
 jobs:
-  printing-the-default-env-vars:
-    runs-on: Windows
+  create-and-upload:
+    runs-on: [self-hosted, windows]
     steps:
-      - name: Print GitHub environment variables & secret
-        run: | 
-          echo "GITHUB_USERNAME: $GH_USERNAME"
-          echo "GITHUB_PAT: $GH_PAT"
-
       - name: Create web folder and index.html
         shell: powershell
         run: |
-          mkdir sample-website
-          New-Item -Path "./sample-website/index.html" -ItemType "File" -Force
-          Set-Content -Path "./sample-website/index.html" -Value "<h1> DevTools </h1>"
+          if (-Not (Test-Path "web")) { mkdir web }
+          New-Item -Path "web/index.html" -ItemType "File" -Force
+          Set-Content -Path "web/index.html" -Value "<h1>Hello from RCB!</h1>"
 
-      - name: uploading the index file as an artifact
+      - name: Upload web folder as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: web-file
-          path: index.html
-          
-  printing-the-webpage-file:
-    runs-on: windows
-    steps: 
-      - name: downloading the html file
+          name: web-html
+          path: web/
+
+  download-and-display:
+    runs-on: [self-hosted, windows]
+    needs: create-and-upload
+    steps:
+      - name: Download web artifact
         uses: actions/download-artifact@v4
         with:
-          name: web-file
+          name: web-html
 
-      - name: Displaying html file content
-        run: cat index.html
-
-
-
-
-
-
-
+      - name: Display HTML file content
+        shell: powershell
+        run: |
+          Get-Content "web/index.html"
