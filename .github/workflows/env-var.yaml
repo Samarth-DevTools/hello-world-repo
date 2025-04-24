@@ -13,7 +13,8 @@ jobs:
 
       - name: make a folder and add an html file
         run: |
-          mkdir web && touch index.html
+          mkdir web
+          touch index.html
           echo "<h1> RCB <h1>" > index.html
 
       - name: uploading the index file as an artifact
