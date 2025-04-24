@@ -22,7 +22,7 @@ jobs:
           name: web file
           path: index.html
   printing-the-webpage-file:
-    runs-on: win
+    runs-on: windows
     steps: 
       - name: downloading the html file
         uses: actions/download-artifact@v4
