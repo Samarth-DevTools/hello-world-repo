@@ -14,7 +14,7 @@ jobs:
       - name: Create web folder and index.html
         shell: powershell
         run: |
-          mkdir web
+          mkdir website
           New-Item -Path "./web/index.html" -ItemType "File" -Force
           Set-Content -Path "./web/index.html" -Value "<h1> RCB </h1>"
 
