@@ -1,0 +1,19 @@
+name: node npm workflow
+on: 
+  push:
+jobs: 
+  checking-bats-version:
+    runs-on: [windows,win]
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Node setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 4.0
+          
+      - run: npm install -g bats
+      
+      - name: Checking th bats version
+        run: bats -v
