@@ -1,0 +1,67 @@
+name: List Pull Requests to CSV
+
+on:
+  workflow_dispatch:
+
+jobs:
+  list-pull-requests:
+    runs-on: demo-runner
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh -y
+
+      - name: Authenticate GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.MY_SECRET }}
+        run: gh auth setup-git
+
+      - name: List PRs and save as JSON
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr list --limit 100 --json number,title,author,state > pull-requests.json
+
+      - name: Convert JSON to CSV
+        run: |
+          echo "number,title,author,state" > pull-requests.csv
+          cat pull-requests.json | jq -r '.[] | [.number, .title, .author.login, .state] | @csv' >> pull-requests.csv
+
+      - name: Upload CSV as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pull-requests-csv
+          path: pull-requests.csv
+
+  commit-prs-csv:
+    runs-on: demo-runner
+    needs: list-pull-requests
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download CSV file
+        uses: actions/download-artifact@v4
+        with:
+          name: pull-requests-csv
+
+      - name: Commit and push CSV to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Optional: Move to a subfolder like 'data/' if you want
+          mkdir -p data
+          mv pull-requests.csv data/pull-requests.csv
+
+          git add data/pull-requests.csv
+          git commit -m "Add latest pull-requests.csv from workflow"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
