@@ -12,7 +12,7 @@ jobs:
           echo "GITHUB_PAT: $GH_PAT"
 
       - name: Create web folder and index.html
-        shell: pwsh
+        shell: powershell
         run: |
           mkdir web
           New-Item -Path "./web/index.html" -ItemType "File" -Force
