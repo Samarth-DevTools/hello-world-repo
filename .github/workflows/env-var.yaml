@@ -11,17 +11,19 @@ jobs:
           echo "GITHUB_USERNAME: $GH_USERNAME"
           echo "GITHUB_PAT: $GH_PAT"
 
-      - name: make a folder and add an html file
+      - name: Create web folder and index.html
+        shell: pwsh
         run: |
           mkdir web
-          touch index.html
-          echo "<h1> RCB <h1>" > index.html
+          New-Item -Path "./web/index.html" -ItemType "File" -Force
+          Set-Content -Path "./web/index.html" -Value "<h1> RCB </h1>"
 
       - name: uploading the index file as an artifact
         uses: actions/upload-artifact@v4
         with:
           name: web file
           path: index.html
+          
   printing-the-webpage-file:
     runs-on: windows
     steps: 
@@ -32,3 +34,10 @@ jobs:
 
       - name: Displaying html file content
         run: cat index.html
+
+
+
+
+
+
+
