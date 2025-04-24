@@ -6,10 +6,10 @@ jobs:
   printing-the-default-env-vars:
     runs-on: Windows
     steps:
-      - name: Print GitHub environment variables
+      - name: Print GitHub environment variables & secret
         run: | 
-          echo "GITHUB_SHA: $GITHUB_SHA"
-          echo "GITHUB_ACTOR: $GITHUB_ACTOR"
+          echo "GITHUB_USERNAME: $GH_USERNAME"
+          echo "GITHUB_PAT: $GH_PAT"
 
       - name: make a folder and add an html file
         run: |
