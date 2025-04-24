@@ -14,14 +14,14 @@ jobs:
       - name: Create web folder and index.html
         shell: powershell
         run: |
-          mkdir website1
-          New-Item -Path "./website/index.html" -ItemType "File" -Force
-          Set-Content -Path "./website/index.html" -Value "<h1> DevTools </h1>"
+          mkdir sample-website
+          New-Item -Path "./sample-website/index.html" -ItemType "File" -Force
+          Set-Content -Path "./sample-website/index.html" -Value "<h1> DevTools </h1>"
 
       - name: uploading the index file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: web file
+          name: web-file
           path: index.html
           
   printing-the-webpage-file:
@@ -30,7 +30,7 @@ jobs:
       - name: downloading the html file
         uses: actions/download-artifact@v4
         with:
-          name: web file
+          name: web-file
 
       - name: Displaying html file content
         run: cat index.html
