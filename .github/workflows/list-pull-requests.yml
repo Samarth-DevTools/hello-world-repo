@@ -51,8 +51,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name:  pull-requests.csv
-          path:  ./downloaded-artifacts/
 
-      - name: read the downloaded csv file
-        run: cat ./downloaded-artifacts/pull-requests.csv
+      - name: Content in CSV file:
+        run: cat pull-requests.csv
         
