@@ -1,6 +1,6 @@
 name: Self-Hosted Runner HTML Example
 
-on: [push]
+on: [workflow_dispatch]
 
 jobs:
   create-and-upload:
