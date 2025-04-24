@@ -53,8 +53,8 @@ jobs:
 
       - name: Commit and push CSV to repo
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "Samarth-DevTools"
+          git config user.email "samarthm@devtools.in"
 
           # Optional: Move to a subfolder like 'data/' if you want
           mkdir -p data
