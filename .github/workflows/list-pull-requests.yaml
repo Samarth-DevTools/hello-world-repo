@@ -50,8 +50,8 @@ jobs:
       - name: Download CSV file 
         uses: actions/download-artifact@v4
         with:
-          name:  pull-requests.csv
+          name: pull-requests-csv
 
-      - name: Content in CSV file:
+      - name: Content in CSV file= 
         run: cat pull-requests.csv
         
