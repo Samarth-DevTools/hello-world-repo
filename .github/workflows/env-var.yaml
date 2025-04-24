@@ -15,8 +15,8 @@ jobs:
         shell: powershell
         run: |
           mkdir website
-          New-Item -Path "./web/index.html" -ItemType "File" -Force
-          Set-Content -Path "./web/index.html" -Value "<h1> RCB </h1>"
+          New-Item -Path "./website/index.html" -ItemType "File" -Force
+          Set-Content -Path "./website/index.html" -Value "<h1> DevTools </h1>"
 
       - name: uploading the index file as an artifact
         uses: actions/upload-artifact@v4
