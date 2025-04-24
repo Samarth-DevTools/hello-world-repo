@@ -50,7 +50,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: pull-requests-csv
-
+          
+      - name: List the csv file 
+        run: |
+          ls -l
+          cat pull-requests.csv
+          
       - name: Commit and push CSV to repo
         run: |
           git config user.name "Samarth-DevTools"
