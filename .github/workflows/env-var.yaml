@@ -4,9 +4,30 @@ on:
 
 jobs:
   printing-the-default-env-vars:
-    runs-on: ubuntu-latest
+    runs-on: Windows
     steps:
       - name: Print GitHub environment variables
         run: | 
           echo "GITHUB_SHA: $GITHUB_SHA"
           echo "GITHUB_ACTOR: $GITHUB_ACTOR"
+
+      - name: make a folder and add an html file
+        run: |
+          mkdir web && touch index.html
+          echo "<h1> RCB <h1>" > index.html
+
+      - name: uploading the index file as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web file
+          path: index.html
+  printing-the-webpage-file:
+    runs-on: win
+    steps: 
+      - name: downloading the html file
+        uses: actions/download-artifact@v4
+        with:
+          name: web file
+
+      - name: Displaying html file content
+        run: cat index.html
