@@ -1,0 +1,21 @@
+name: Adding Comment in issue
+on:
+  issues:
+    types:
+      - labeled
+jobs:
+  add-comment:
+    if: github.event.label.name == 'help wanted'
+    runs-on: demo-runner
+    steps:
+      - name: repo checkout
+        run: actions/checkout@v4
+
+      - name: add comment
+        run: gh issue comment -"$NUMBER" --body $BODY
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: > 
+            Ths issue is available for everyone, ::sparkles: Thanks for your contribution! :sparkles:
