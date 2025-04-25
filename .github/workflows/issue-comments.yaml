@@ -9,7 +9,7 @@ jobs:
     runs-on: demo-runner
     steps:
       - name: add comment
-        run: gh issue comment -"$NUMBER" --body "$BODY"
+        run: gh issue comment "$NUMBER" --body "$BODY"
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
           GH_REPO: ${{ github.repository }}
