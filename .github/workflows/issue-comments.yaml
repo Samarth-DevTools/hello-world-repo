@@ -8,11 +8,8 @@ jobs:
     if: github.event.label.name == 'help wanted'
     runs-on: demo-runner
     steps:
-      - name: repo checkout
-        run: actions/checkout@v4
-
       - name: add comment
-        run: gh issue comment -"$NUMBER" --body $BODY
+        run: gh issue comment -"$NUMBER" --body "$BODY"
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
           GH_REPO: ${{ github.repository }}
