@@ -8,6 +8,12 @@ jobs:
     if: github.event.label.name == 'help wanted'
     runs-on: demo-runner
     steps:
+      - name: authenticating to github
+        run: gh auth login
+        env: 
+          GH_USERNAME: Samarth-DevTools
+          GH_PAT: ${{ secrets.GH_PAT }}
+          
       - name: add comment
         run: gh issue comment "$NUMBER" --body "$BODY"
         env:
