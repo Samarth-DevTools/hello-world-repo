@@ -4,7 +4,7 @@ on:
     types: [opened,repoend]
 jobs:
   label_issues:
-    runs-on: windows
+    runs-on: demo-runner
     permissions: 
       issues: write
     steps:
