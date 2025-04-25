@@ -1,4 +1,4 @@
-name: Adding Comment in issue
+name: Add comment
 on:
   issues:
     types:
@@ -7,25 +7,16 @@ jobs:
   add-comment:
     if: github.event.label.name == 'help wanted'
     runs-on: demo-runner
+    permissions:
+      issues: write
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up GitHub CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install gh -y
-
-      - name: Authenticate GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh auth setup-git
-          
-      - name: add comment
+      - name: Add comment
         run: gh issue comment "$NUMBER" --body "$BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-          BODY: > 
-            Ths issue is available for everyone, ::sparkles: Thanks for your contribution! :sparkles:
+          BODY: >
+            This issue is available for anyone to work on.
+            **Make sure to reference this issue in your pull request.**
+            :sparkles: Thank you for your contribution! :sparkles:
