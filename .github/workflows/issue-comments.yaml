@@ -8,11 +8,18 @@ jobs:
     if: github.event.label.name == 'help wanted'
     runs-on: demo-runner
     steps:
-      - name: authenticating to github
-        run: gh auth login
-        env: 
-          GH_USERNAME: Samarth-DevTools
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh -y
+
+      - name: Authenticate GitHub CLI
+        env:
           GH_PAT: ${{ secrets.GH_PAT }}
+        run: gh auth setup-git
           
       - name: add comment
         run: gh issue comment "$NUMBER" --body "$BODY"
