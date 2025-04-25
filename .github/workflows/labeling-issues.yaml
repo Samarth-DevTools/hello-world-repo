@@ -1,7 +1,7 @@
 name: label issues
 on: 
   issues:
-    types: [opened,repoend]
+    types: [opened,reopened]
 jobs:
   label_issues:
     runs-on: demo-runner
