@@ -1,0 +1,15 @@
+name: Sample nodeJS CI
+on: [push, pull_request]
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - run: actions/checkout@v3
+      - name: Use Node JS
+        uses: actions/setup-node@v2
+        with: 
+          node-version: '14'
+
+      - run: npm install node
+      - run: npm run build --if-present
+      - run: npm test
