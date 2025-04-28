@@ -4,7 +4,7 @@ on:
     inputs: 
       input1:
       required: true
-      typre: string
+      type: string
 
 jobs:
   greet-user-job:
