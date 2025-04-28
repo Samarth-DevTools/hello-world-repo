@@ -14,7 +14,7 @@ jobs:
       uses: peter-murray/workflow-application-token-action@v4
       with:
         application_id: ${{ vars.APPLICATION_ID }}
-        application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+        application_private_key: ${{ secrets.APPLICATION_KEY }}
       
     - uses: actions/checkout@v3
       with:
