@@ -5,7 +5,7 @@ jobs:
   upload_file:
     runs-on: ubuntu-latest
     steps: 
-      - run: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: create a text file
         run: |
