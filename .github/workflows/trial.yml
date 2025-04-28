@@ -16,7 +16,7 @@ jobs:
       - name: upoloadin the file
         uses: actions/upload-artifact@v3
         with: 
-          name: sampple file
+          name: sample file
           path: sample.txt
 
   download_file: 
