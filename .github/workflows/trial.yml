@@ -13,7 +13,7 @@ jobs:
           echo "GitHub is a version control software" > sample.txt
           ls 
 
-      - name: upoloadin the file
+      - name: upoloading the file
         uses: actions/upload-artifact@v4
         with: 
           name: sample_file
@@ -26,5 +26,8 @@ jobs:
     - name: download artifact
       uses: actions/download-artifact@v4
       with: 
-        name: sample.txt
+        name: sample_file
+
+    - name: printing the content inside artifact
+      run: cat sample.txt
         
