@@ -1,17 +1,18 @@
 name: reusable workflow
+
 on: 
   workflow_call:
     inputs: 
       input1:
-      required: true
-      type: string
+        required: true
+        type: string
 
 jobs:
   greet-user-job:
     runs-on: ubuntu-latest
     steps:
-      - run: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: saying hello world
+      - name: Saying hello world
         run: echo "I am saying ${{ inputs.input1 }}"
-        
