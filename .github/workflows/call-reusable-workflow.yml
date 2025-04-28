@@ -1,0 +1,7 @@
+name: calling a eusable workflow
+on: [push]
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      input1: hello world
