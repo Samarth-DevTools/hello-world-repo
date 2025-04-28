@@ -1,0 +1,29 @@
+name: practice for artifact
+on: 
+  push:
+jobs: 
+  upload_file:
+    runs-on: ubuntu-latest
+    steps: 
+      - run: actions/checkout@v4
+
+      - name: create a text file
+        run: |
+          mkdir demo1
+          echo "GitHub is a version control software" > sample.txt
+          ls 
+
+      - name: upoloadin the file
+        uses: actions/upload-artifact@v3
+        with: 
+          name: sampple file
+          path: sample.txt
+
+  download_file: 
+    runs-on: ubuntu-latest
+    steps: 
+    - name: download artifact
+      uses: actions/download-artifact@v4
+      with: 
+        name: sample.txt
+        
