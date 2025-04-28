@@ -20,6 +20,7 @@ jobs:
           path: sample.txt
 
   download_file: 
+    needs: [upload_file]
     runs-on: ubuntu-latest
     steps: 
     - name: download artifact
