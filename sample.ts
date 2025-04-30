@@ -9,3 +9,4 @@ console.log(person.name);
 
 let selectedColors = ['red', 'blue'];
 console.log(selectedColors);
+
