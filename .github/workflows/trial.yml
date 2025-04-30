@@ -1,6 +1,6 @@
 name: practice for artifact
 on: 
-  push:
+  workflow_dispatch:
 jobs: 
   upload_file:
     runs-on: ubuntu-latest
